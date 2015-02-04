@@ -1,0 +1,35 @@
+----------------------------------------
+1/10/15:
+in service-context.xml
+
+-need to correct reference in spitterService
+-create SpitterServiceImpl
+
+
+need to correct spitterDao in persistence-context.xml
+need to create SimpleJdbcSupportSpitterDao
+
+* DONE
+--------------------------------------------
+
+
+
+
+--------------------------------------------
+
+-switch back to use apache tiles
+-graphics from book
+
+*DONE
+--------------------------------------------
+
+
+
+
+----------------------------------------------
+
+--make a constructor for Spitter where you can initialize
+ the whole object with a spitter id.
+
+----------------------------------------------
+
