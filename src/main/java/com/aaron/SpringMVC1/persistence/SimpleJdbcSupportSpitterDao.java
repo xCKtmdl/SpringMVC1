@@ -123,14 +123,20 @@ public class SimpleJdbcSupportSpitterDao extends SimpleJdbcDaoSupport implements
 
 			String stringTableName = listTableNames.get(i);
 			int spittleId = getSpittleIdFromTableName(stringTableName);
-
+/*
 			sqlCommand = "select * from " + stringTableName
 					+ " where comment_id=1";
+					*/
+			
+			sqlCommand = "SELECT t1.spittle_text,t1.comment_id,t1.comment_date,t2.spitter_id,t2.username,t2.fullname FROM " + stringTableName
+				+ " t1 inner join spitter t2 on t1.spitter_id=t2.spitter_id"	+ " WHERE t1.comment_id = 1";
+			
 			conn = null;
 			stmt = null;
 			rs = null;
 			Spitter spitter1 = new Spitter();
-			int spitterId;
+			
+			
 			Spittle spittle1 = new Spittle();
 			spittle1.setId((long) spittleId);
 
@@ -143,8 +149,15 @@ public class SimpleJdbcSupportSpitterDao extends SimpleJdbcDaoSupport implements
 				while (rs.next()) {
 
 					spittle1.setText(rs.getString("spittle_text"));
-					spitterId = rs.getInt("spitter_id");
+					int spitterId = rs.getInt("spitter_id");
+					String spitterUsername = rs.getString("username");
+					String spitterFullname = rs.getString("fullname");
 					spittle1.setWhen(rs.getDate("comment_date"));
+					spitter1.setFullName(spitterFullname);
+					spitter1.setUsername(spitterUsername);
+					spitter1.setId((long) spitterId); 
+					spittle1.setSpitter(spitter1);
+					spittleList.add(spittle1);
 
 				}
 
@@ -166,7 +179,7 @@ public class SimpleJdbcSupportSpitterDao extends SimpleJdbcDaoSupport implements
 
 		}
 
-		return null;
+		return spittleList;
 
 	}
 
